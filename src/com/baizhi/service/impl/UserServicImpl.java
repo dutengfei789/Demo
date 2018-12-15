@@ -19,7 +19,7 @@ import java.util.Map;
 public class UserServicImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserDao userDao;//设置set方法
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
@@ -35,6 +35,7 @@ public class UserServicImpl implements UserService {
 //        map.put("pwd", pwd);
         User user = userDao.selectOne(queryWrapper);
         if (user != null) {
+//            System.out.println("-------------");
             return "true";
         }
 

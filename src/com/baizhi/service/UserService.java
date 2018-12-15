@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 @WebService//将此类设置提供功能的类。加在接口上面
-@Produces({MediaType.APPLICATION_JSON})//以json的方式传输数据
+//@Produces({MediaType.APPLICATION_JSON})//以json的方式传输数据
 public interface UserService {
 
     @GET

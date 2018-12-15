@@ -76,7 +76,7 @@
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <!--匹配到get*, 说明你想做查询操作-->
-            <tx:method name="select*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
             <!--匹配到insert*,说明你想做添加操作-->
             <tx:method name="*" />
         </tx:attributes>
