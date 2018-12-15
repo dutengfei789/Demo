@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dao.BookDao">
+
+    <resultMap id="a1" type="Book">
+        <id column="book_id" property="bookId"/>
+        <result column="book_name" property="bookName"/>
+        <result column="author" property="author"/>
+        <result column="up_date" property="putawayDate"/>
+        <result column="book_price" property="bookPrice"/>
+    </resultMap>
+
+    <!--s 要以表格的形式展示-->
+    <select id="findBooksByCategoryId" resultMap="a1">
+        select *
+        from (select t1.BOOK_ID,t1.BOOK_NAME,t1.AUTHOR,t1.UP_DATE,t1.BOOK_PRICE, ROWNUM r
+              from D_BOOK t1
+              where 1=1
+                <if test="list!=null and list.size()!=0">
+                  and CATEGORY_ID in
+                    <foreach collection="list" item="id" open="(" close=")" separator=",">
+                        #{id}
+                    </foreach>
+                </if>
+                <if test="bookName!=null">
+                  and BOOK_NAME like #{bookName}
+                </if>)
+        where r between #{start} and #{end}
+    </select>
+
+
+    <!--查询图书数量-->
+    <select id="findBookCountByCategoryId" resultType="Integer">
+      select count(1)
+        from D_BOOK
+        where 1=1
+        <if test="list!=null and list.size()!=0">
+            and CATEGORY_ID in
+            <foreach collection="list" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </if>
+        <if test="bookName!=null">
+            and BOOK_NAME like #{bookName}
+        </if>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dao.CategoryDao">
+    <resultMap id="a1" type="TreeNode">
+        <result column="parent_id" property="id"/>
+        <result column="parent_name" property="text"/>
+        <collection property="children" ofType="TreeNode">
+            <result column="category_id" property="id"/>
+            <result column="category_name" property="text"/>
+        </collection>
+    </resultMap>
+    <select id="findCategories" resultMap="a1">
+        select * from CATEGORY_VIEW
+    </select>
+
+    <!--根据id查询categoryId-->
+    <select id="findCategoryIdByParentId" resultType="Integer">
+        select CATEGORY_ID from DD_CATEGORY where PARENT_ID=#{categrorId}
+    </select>
+
+</mapper>
